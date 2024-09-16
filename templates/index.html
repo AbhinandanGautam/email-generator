@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>E-Mail Generator</title>
+</head>
+
+<body>
+
+    <nav class="bg-white border-gray-200 p-5 flex items-center justify-center mx-auto ">
+        <h1 class="text-3xl">📧 E-Mail Generator</h1>
+    </nav>
+
+    <div class="w-full mx-5 px-16 py-5">
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-lg font-bold mb-2" for="url_input">
+                    Enter a URL:
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text" id="url_input" name="url_input" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-lg font-bold mb-2" for="temperature_input">
+                    Temperature:
+                </label>
+
+                <div class="flex items-center justify-left space-x-5">
+                    <span class="text-md">Deterministic</span>
+                    <input id="temperature" name="temperature_input" type="range" min="0" max="1" step="0.01" value="0"
+                        class="w-64 h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+                    <span class="text-md">Creative</span>
+                    <span id="temperatureValue" class="text-gray-700 text-lg px-4 py-2 border-2 border-grey-200 rounded-md">0</span>
+                </div>
+            </div>
+
+            <button
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">Submit</button>
+        </form>
+    </div>
+
+
+    <div class="w-full mx-5 px-16 py-5">
+        <div class="flex flex-col bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            {% if email %}
+            <label class="block text-gray-700 text-xl font-bold mb-2">
+                Generated Email:
+            </label>
+            <pre class="text-gray-700 text-base break-words whitespace-pre-wrap">{{ email }}</pre>
+            {% endif %}
+
+            {% if error %}
+            <label class="block text-gray-700 text-xl font-bold mb-2"></label>
+            Error:
+            </label>
+            <pre class="text-red-700 text-base">{{ error }}</pre>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const slider = document.getElementById('temperature');
+        const valueDisplay = document.getElementById('temperatureValue');
+
+        slider.addEventListener('input', function() {
+            valueDisplay.textContent = this.value;
+        });
+    </script>
+
+</body>
+
+</html>
